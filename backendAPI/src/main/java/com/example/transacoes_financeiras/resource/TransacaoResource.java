@@ -3,9 +3,12 @@ package com.example.transacoes_financeiras.resource;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,4 +40,17 @@ public class TransacaoResource {
         List<Transacao> list = service.findByTipoTransacao(tipo);
         return ResponseEntity.ok(list);
     }
+
+    @PostMapping(value = "/tipo/{tipo}")
+    public ResponseEntity<Transacao> salvarTransacao(@RequestBody Transacao transacao) {
+        Transacao novaTransacao = service.save(transacao);
+        return  new ResponseEntity<>(novaTransacao, HttpStatus.CREATED);
+    }
+    
+    @GetMapping("/total")
+    public ResponseEntity<Double> obterTotal() {
+        Double total = service.calcularTotalGeral();
+        return ResponseEntity.ok(total);
+    }
+
 }

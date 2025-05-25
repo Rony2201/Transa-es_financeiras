@@ -26,6 +26,34 @@ public class TransacaoService {
     }
 
     public List<Transacao> findByTipoTransacao(TipoTransacao tipo) {
-        throw new UnsupportedOperationException("Unimplemented method 'findByTipoTransacao'");
+        return repository.findByTipoTransacao(tipo);
     }
+
+    public Transacao save(Transacao transacao) {
+        return repository.save(transacao);
+    }
+
+    public Double atualizarTotal(Double totalAtual, Transacao transacao) {
+        if (transacao == null || transacao.getValor() == null || transacao.getTipoTransacao() == null) {
+            return totalAtual;
+        }
+
+        if (transacao.getTipoTransacao() == TipoTransacao.RECEITA) {
+            return totalAtual + transacao.getValor();
+        } else if (transacao.getTipoTransacao() == TipoTransacao.DESPESA) {
+            return totalAtual - transacao.getValor();
+        }
+        return totalAtual;
+    }
+
+    public Double calcularTotalGeral() {
+    List<Transacao> todasTransacoes = repository.findAll();
+
+    Double total = 0.0;
+    for (Transacao t : todasTransacoes) {
+        total = atualizarTotal(total, t);
+    }
+    return total;
+}
+
 }

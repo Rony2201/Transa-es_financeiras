@@ -22,15 +22,17 @@ public class Transacao implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-    private TipoTransacao TipoTransacao;
+    private TipoTransacao tipoTransacao;
+    private Double Valor;
     private String Categoria;
 
     public Transacao() {}
 
 
-    public Transacao(Long id, TipoTransacao tipoTransacao, String categoria) {
+    public Transacao(Long id, TipoTransacao tipoTransacao,Double valor, String categoria) {
         this.Id = id;
-        this.TipoTransacao = tipoTransacao;
+        this.tipoTransacao = tipoTransacao;
+        this.Valor = valor;
         this.Categoria = categoria;
     }
 
@@ -43,11 +45,19 @@ public class Transacao implements Serializable{
     }
 
     public TipoTransacao getTipoTransacao() {
-        return TipoTransacao;
+        return tipoTransacao;
+    }
+
+    public void setValor(Double valor) {
+        this.Valor = valor;
+    }
+
+    public Double getValor(){
+        return Valor;
     }
 
     public void setTipoTransacao(TipoTransacao tipoTransacao) {
-        this.TipoTransacao = tipoTransacao;
+        this.tipoTransacao = tipoTransacao;
     }
 
     public String getCategoria() {
