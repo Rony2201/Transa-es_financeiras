@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.transacoes_financeiras.entities.TipoTransacao;
 import com.example.transacoes_financeiras.entities.Transacao;
 import com.example.transacoes_financeiras.repositories.TransacaoRepository;
 
@@ -22,5 +23,9 @@ public class TransacaoService {
     public Transacao findById(Long id) {
         Optional<Transacao> obj = repository.findById(id);
         return obj.get();
+    }
+
+    public List<Transacao> findByTipoTransacao(TipoTransacao tipo) {
+        throw new UnsupportedOperationException("Unimplemented method 'findByTipoTransacao'");
     }
 }

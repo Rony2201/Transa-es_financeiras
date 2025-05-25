@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.transacoes_financeiras.entities.TipoTransacao;
 import com.example.transacoes_financeiras.entities.Transacao;
 import com.example.transacoes_financeiras.service.TransacaoService;
 
@@ -29,5 +30,11 @@ public class TransacaoResource {
     public ResponseEntity<Transacao> findById(@PathVariable Long id) {
         Transacao obj = service.findById(id);
         return ResponseEntity.ok(obj);
+    }
+    
+    @GetMapping(value = "/tipo/{tipo}")
+    public ResponseEntity<List<Transacao>> findByTipo(@PathVariable TipoTransacao tipo) {
+        List<Transacao> list = service.findByTipoTransacao(tipo);
+        return ResponseEntity.ok(list);
     }
 }
