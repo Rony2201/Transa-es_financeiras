@@ -33,6 +33,18 @@ public class TransacaoService {
         return repository.save(transacao);
     }
 
+    public void delete(Long Id) {
+        repository.deleteById(Id);
+    }
+    public Transacao buscarPorId(Long id) {    
+        
+        return repository.findById(id).orElse(null);
+    }
+
+    public Transacao Editar(Transacao transacao) {
+        return repository.save(transacao);
+    }
+
     public Double atualizarTotal(Double totalAtual, Transacao transacao) {
         if (transacao == null || transacao.getValor() == null || transacao.getTipoTransacao() == null) {
             return totalAtual;
@@ -45,7 +57,6 @@ public class TransacaoService {
         }
         return totalAtual;
     }
-
     public Double calcularTotalGeral() {
     List<Transacao> todasTransacoes = repository.findAll();
 
@@ -54,6 +65,8 @@ public class TransacaoService {
         total = atualizarTotal(total, t);
     }
     return total;
-}
+    }
+    
+
 
 }
